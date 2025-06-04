@@ -45,6 +45,7 @@ module.exports = {
       'error', { 'before': true, 'after': true }
     ],
     // 'no-console': 'error',
+    'no-unused-vars': 'off',
     'react/prop-types': 0
   }
 }
