@@ -42,6 +42,8 @@ jobs:
     if: ${{ github.env.SKIP_CONDITION == 'true' }}
     steps:
       - uses: actions/checkout@v4
+      - name: Debug SKIP_CONDITION
+        run: echo "SKIP_CONDITION is [$SKIP_CONDITION]"
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.73.0
         env:
