@@ -33,20 +33,20 @@ jobs:
       - name: Trigger deployment
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
-      - name: Discord webhook notify (success)
-        uses: rjstone/discord-webhook-notify@e3fdffbe09fc784fef3788aecf3ca806719aa7e3
+      - name: Discord notification (success)
+        uses: hunghg255/action-notifications@894db3cd6f36df54782882ec35daf3880dfeb5bd
         if: success()
         with:
-            severity: info
-            details: A new version of Pokedex deployed
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-      - name: Discord webhook notify (failure)
-        uses: rjstone/discord-webhook-notify@e3fdffbe09fc784fef3788aecf3ca806719aa7e3
+          discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: 'New deployment live ✅'
+          description: 'A new version of Pokedex deployed'
+      - name: Discord notification (failure)
+        uses: hunghg255/action-notifications@894db3cd6f36df54782882ec35daf3880dfeb5bd
         if: failure()
         with:
-            severity: error
-            details: Build failed
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: 'Build failed ❌'
+          description: 'Check the commit for more info'
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-latest
