@@ -1,7 +1,7 @@
 name: Deployment pipeline
 
 env:
-  SKIP_CONDITION: ${{ github.event_name == 'push' }}
+  SKIP_CONDITION: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
 
 on:
   push:
