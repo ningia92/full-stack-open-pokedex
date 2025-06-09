@@ -1,8 +1,11 @@
 name: Health Check pipeline
 
 on:
-  schedule:
-    - cron: '1 * * * *'
+  # schedule:
+  #   - cron: '1 * * * *'
+  push:
+    branches:
+      - main
 
 jobs:
   health_check:
